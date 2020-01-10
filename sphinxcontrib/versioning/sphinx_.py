@@ -166,9 +166,9 @@ def setup(app):
 class ConfigInject(SphinxConfig):
     """Inject this extension info self.extensions. Append after user's extensions."""
 
-    def __init__(self, dirname, filename, overrides, tags):
+    def __init__(self, *args):
         """Constructor."""
-        super(ConfigInject, self).__init__(dirname, filename, overrides, tags)
+        super(ConfigInject, self).__init__(*args)
         self.extensions.append('sphinxcontrib.versioning.sphinx_')
 
 
