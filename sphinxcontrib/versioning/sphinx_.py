@@ -6,7 +6,14 @@ import multiprocessing
 import os
 import sys
 
-from sphinx import application, build_main, locale
+from sphinx import application, locale
+
+try:
+    from sphinx import build_main
+except ImportError:
+    # Python 3.6+ ImportError fix
+    from sphinx.cmd.build import build_main
+
 from sphinx.builders.html import StandaloneHTMLBuilder
 from sphinx.config import Config as SphinxConfig
 from sphinx.errors import SphinxError
@@ -202,7 +209,7 @@ def _build(argv, config, versions, current_name, is_root):
         argv += config.overflow
 
     # Build.
-    result = build_main(argv)
+    result = build_main(argv[1:])
     if result != 0:
         raise SphinxError
 
